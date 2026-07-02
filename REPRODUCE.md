@@ -37,8 +37,21 @@ data/
   nltk_data/...                             # movie_reviews, wordnet, punkt, ...
 ```
 
-Upload the contents of `data/` into the capsule's **`data/`** folder. On Code
-Ocean that mounts read-only at `/data` during the run.
+Get this into the capsule's **`data/`** folder (mounted read-only at `/data`
+during the run). The folder structure matters — `run.sh` expects
+`data/embeddings/*.bin` and `data/nltk_data/`, and NLTK needs its internal
+`corpora/`, `taggers/`, `tokenizers/` layout — so preserve it one of two ways:
+
+- **Drag the `embeddings/` and `nltk_data/` folders in** (Code Ocean keeps
+  their internal structure), or
+- **Upload a single archive** and let `run.sh` unpack it — no folder-clicking:
+
+  ```bash
+  tar czf data.tar.gz data     # one file containing embeddings/ + nltk_data/
+  ```
+
+  Upload `data.tar.gz` to the capsule's `data/`. On startup `run.sh` detects
+  it, extracts to a writable staging dir, and uses it automatically.
 
 ## 3. Run
 

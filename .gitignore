@@ -13,3 +13,4 @@ results/
 *.egg-info/
 *.log
 .ipynb_checkpoints/
+*.tar.gz

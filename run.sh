@@ -17,6 +17,20 @@ DATA_DIR="${CO_DATA:-/data}";        [ -d "$DATA_DIR" ] || DATA_DIR="$(pwd)/data
 RESULTS_DIR="${CO_RESULTS:-/results}"; [ -d "$RESULTS_DIR" ] || RESULTS_DIR="$(pwd)/results"
 mkdir -p "$RESULTS_DIR"
 
+# Convenience: if the pre-staged folders aren't directly present but a single
+# archive was uploaded (data.tar.gz), unpack it to a writable staging dir.
+# This lets you upload ONE file to the capsule instead of a folder tree.
+if [ ! -d "$DATA_DIR/nltk_data" ] || [ ! -d "$DATA_DIR/embeddings" ]; then
+  ARCHIVE="$(ls "$DATA_DIR"/*.tar.gz 2>/dev/null | head -1 || true)"
+  if [ -n "${ARCHIVE:-}" ]; then
+    STAGE="${TMPDIR:-/tmp}/lexisem_data"
+    echo "Extracting $ARCHIVE -> $STAGE"
+    mkdir -p "$STAGE"; tar xzf "$ARCHIVE" -C "$STAGE"
+    # archive made with `tar czf data.tar.gz data/` -> descend into data/
+    [ -d "$STAGE/data" ] && DATA_DIR="$STAGE/data" || DATA_DIR="$STAGE"
+  fi
+fi
+
 PRETRAINED="glove-wiki-gigaword-100"
 VECTORS="$DATA_DIR/embeddings/${PRETRAINED}.bin"
 NLTK_LOCAL="$DATA_DIR/nltk_data"
