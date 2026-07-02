@@ -48,8 +48,21 @@ SEED = 42
 # --------------------------------------------------------------------------- #
 # Data
 # --------------------------------------------------------------------------- #
+def _ensure_corpus(name: str) -> None:
+    """Make an NLTK corpus available without hanging when offline.
+
+    Looks for it first (honours the NLTK_DATA env var / nltk.data.path); only
+    hits the network if it is genuinely missing. In an offline capsule the
+    corpus is pre-staged under NLTK_DATA, so no download is attempted.
+    """
+    try:
+        nltk.data.find(f"corpora/{name}")
+    except LookupError:
+        nltk.download(name, quiet=True)
+
+
 def load_movie_reviews() -> Tuple[List[str], np.ndarray]:
-    nltk.download("movie_reviews", quiet=True)
+    _ensure_corpus("movie_reviews")
     from nltk.corpus import movie_reviews
     texts, labels = [], []
     for cat in ("pos", "neg"):
@@ -176,6 +189,8 @@ def main():
     ap.add_argument("--lstm", action="store_true", help="also run the LSTM path")
     ap.add_argument("--max-len", type=int, default=300)
     ap.add_argument("--epochs", type=int, default=6)
+    ap.add_argument("--out", default="results.json",
+                    help="output JSON path (Code Ocean: point at /results)")
     args = ap.parse_args()
 
     t0 = time.time()
@@ -225,8 +240,11 @@ def main():
     out = {"dataset": tag, "embeddings": args.vectors or pretrained or "local",
            "expansion_stats": stats, "results": results,
            "runtime_sec": round(time.time() - t0, 1)}
-    with open("results.json", "w") as fh:
+    out_dir = os.path.dirname(os.path.abspath(args.out))
+    os.makedirs(out_dir, exist_ok=True)
+    with open(args.out, "w") as fh:
         json.dump(out, fh, indent=2)
+    print(f"      wrote {args.out}")
 
     print("\n===== RESULTS =====")
     hdr = f"{'model':10s} {'condition':16s} {'PP':>6} {'RP':>6} {'F1-P':>6} {'PN':>6} {'RN':>6} {'F1-N':>6}"

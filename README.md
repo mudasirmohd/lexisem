@@ -61,6 +61,10 @@ python scripts/run_experiment.py --vectors /path/to/GoogleNews-vectors-negative3
 Results print to the console and are written to `results.json`.
 Preprocessing is cached (`preproc_*.pkl`) so re-runs are fast.
 
+For a one-click / offline reproducible run (e.g. Code Ocean), use `run.sh`
+and pre-stage data with `scripts/prepare_offline_data.py` — see
+[`REPRODUCE.md`](REPRODUCE.md).
+
 ### Useful flags
 | flag | meaning | default |
 |------|---------|---------|
