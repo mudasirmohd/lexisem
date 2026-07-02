@@ -1,6 +1,6 @@
 # lexisem — Lexico-Semantic Features for Sentiment Analysis
 
-Reference implementation of the method in:
+Clean-room implementation of the method in:
 
 > Mohd, Javeed, Nowsheena, Wani, Khanday (2022),
 > *Sentiment analysis using lexico-semantic features*,
