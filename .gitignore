@@ -7,6 +7,9 @@ __pycache__/
 embeddings_lexisem.model*
 preproc_*.pkl
 results.json
+data/
+results/
+*.bin
 *.egg-info/
 *.log
 .ipynb_checkpoints/
