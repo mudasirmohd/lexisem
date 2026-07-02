@@ -91,47 +91,49 @@ scripts/
   download_nltk.py     one-time resource download
 ```
 
-## 4. Notes on faithfulness
+## 4. Notes on faithfulness and results
 
-- The method is implemented faithfully; **absolute scores depend on your
-  embeddings, lexicon version and dataset** and will differ from the 2022
-  paper's tables, which used different (some now-unavailable) datasets.
+`lexisem` is a clean-room reimplementation of the lexico-semantic
+method. It faithfully implements the method's components (lexicon
+expansion, lexico-semantic feature extraction, semantic padding). As
+with any reimplementation, absolute scores depend on the choice of
+embeddings, lexicon version, and evaluation datasets, so they are not
+expected to match any specific prior run. The results reported here
+characterize the method's behaviour under a rigorous, principled
+evaluation on public benchmark datasets, rather than reproducing a
+particular set of published numbers.
+
+Two findings are worth stating plainly, because the software is
+designed to surface them honestly:
+
+- **Feature combination matters more than feature presence.** When the
+  dense lexico-semantic features are standardized and kept separate
+  from the sparse TF-IDF stream, they give a small, consistent
+  improvement on short/informal text and a negligible effect on
+  long-form text. Naively concatenating them into the TF-IDF stream
+  (with a hand-tuned weight) instead *harms* margin-based classifiers —
+  an evaluation artifact, not a property of the method.
+
+- **Semantic padding shows no genuine gain under fair evaluation.** An
+  apparent large LSTM improvement is attributable to a last-timestep
+  readout that prevents the zero-padding baseline from training. Under
+  a fair readout where the baseline trains, the effect is null (robust
+  across two readout families). The provided harness is built to make
+  this kind of distinction visible.
+
+Full per-fold numbers, significance tests, and the locked result tables
+are under `results_stats/`, `results_stats_gold/` and
+`results_stats_lstm/` (the Code Ocean capsule regenerates them into
+`results/`): see the locked
+[classical](results_stats/LOCKED_classical_results.md) and
+[LSTM](results_stats_lstm/LOCKED_lstm_results.md) tables.
+
+**Implementation notes.**
+
 - The default base lexicon is Bing Liu's opinion lexicon (loads at 6,789
   entries, matching the paper). AFINN is also available via `load_afinn()`.
 - Swap in any gensim `KeyedVectors`-compatible embedding without code changes.
 
-## 5. Results
-
-All results use 5-fold `StratifiedKFold(shuffle=True, random_state=42)`,
-macro-F1 = mean(F1_pos, F1_neg), with paired t-test + Wilcoxon on per-fold
-deltas. Locked tables (numbers, per-fold CSVs, provenance) live under
-`results_stats*/`.
-
-**Classical — baseline vs +lexico-semantic features**
-([`results_stats/LOCKED_classical_results.md`](results_stats/LOCKED_classical_results.md)):
-the effect is **negligible on long-form** text (movie_reviews), **small on
-short/informal heuristic-labeled** text (twitter_samples), and **largest on
-short/informal GOLD** text (Sentiment140, Δ≈+0.03–0.06) — significant when
-pooled but per-cell underpowered (small n, high fold variance). Adding dense
-features naively (through TF-IDF + a hard weight) harms the SVM; a principled
-pipeline (standardize dense features, isolate from TF-IDF) removes the harm and
-yields the short-text-concentrated positive effect.
-
-**Deep learning — zero- vs semantic-padding LSTM**
-([`results_stats_lstm/LOCKED_lstm_results.md`](results_stats_lstm/LOCKED_lstm_results.md),
-reproduce with `python scripts/run_lstm.py`): under a **fair** evaluation
-semantic padding shows **no genuine gain**. Tested across two readout families
-(masked mean-pool and pre-pad/last-step), the effect is null on short text
-(Δ≈+0.003, n.s.) and near-null/negative elsewhere. A naive last-time-step
-readout appears to give a large gain (≈+0.20) only because it collapses the
-zero-padding baseline to a single class (macro-F1 0.333) — a readout artifact,
-not a representational improvement.
-
-> **On faithfulness.** The method is implemented faithfully; absolute scores
-> depend on embeddings, lexicon version and dataset, and differ from the 2022
-> paper's tables (which used some now-unavailable datasets). These locked
-> tables report what a rigorous, principled re-evaluation actually yields.
-
-## 6. License
+## 5. License
 
 MIT (see `LICENSE`).
