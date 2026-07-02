@@ -1,0 +1,155 @@
+{
+  "status": "LOCKED LSTM results (zero vs semantic padding)",
+  "claim_under_test": "paper \u00a73.4.2 \u2014 semantic padding improves the LSTM",
+  "protocol": "5-fold StratifiedKFold(shuffle=True, random_state=42); macro-F1=mean(F1_pos,F1_neg); paired t + Wilcoxon on per-fold deltas; identical fold split/init/minibatch order/dropout per condition; epochs=10, max_len=300, lr=0.0005, grad_clip=5.0, collapse-retry=1",
+  "readouts": {
+    "meanpool": "post-pad; masked mean-pool (zero over real tokens, semantic over all slots)",
+    "prelast": "pre-pad (real tokens last); last-time-step readout; semantic pads consumed sequentially before real tokens"
+  },
+  "embeddings": "glove-wiki-gigaword-100",
+  "expansion_stats": {
+    "base_positive": 2006,
+    "base_negative": 4783,
+    "base_total": 6789,
+    "expanded_positive": 5689,
+    "expanded_negative": 12024,
+    "expanded_total": 17713
+  },
+  "labels_note": "labels reconstructed deterministically: movie=NLTK movie_reviews pos(1000)+neg(1000); twitter=NLTK twitter_samples pos(5000)+neg(5000), emoticon distant",
+  "cells": {
+    "meanpool": {
+      "movie": {
+        "zero_mean": 0.7633,
+        "zero_std": 0.0407,
+        "semantic_mean": 0.7773,
+        "semantic_std": 0.0342,
+        "delta": 0.014,
+        "pos_folds": 5,
+        "n_folds": 5,
+        "t_p": 0.0367,
+        "wilcoxon_p": 0.0625,
+        "collapsed_zero": 0,
+        "collapsed_semantic": 0,
+        "per_fold_zero": [
+          0.8124,
+          0.7,
+          0.7774,
+          0.7646,
+          0.7622
+        ],
+        "per_fold_semantic": [
+          0.8124,
+          0.7234,
+          0.7974,
+          0.7847,
+          0.7687
+        ]
+      },
+      "twitter": {
+        "zero_mean": 0.7268,
+        "zero_std": 0.0089,
+        "semantic_mean": 0.5011,
+        "semantic_std": 0.1413,
+        "delta": -0.2256,
+        "pos_folds": 0,
+        "n_folds": 5,
+        "t_p": 0.0265,
+        "wilcoxon_p": 0.0625,
+        "collapsed_zero": 0,
+        "collapsed_semantic": 1,
+        "per_fold_zero": [
+          0.742,
+          0.7211,
+          0.7248,
+          0.726,
+          0.72
+        ],
+        "per_fold_semantic": [
+          0.3333,
+          0.661,
+          0.4173,
+          0.6333,
+          0.4608
+        ]
+      }
+    },
+    "prelast": {
+      "movie": {
+        "zero_mean": 0.6405,
+        "zero_std": 0.142,
+        "semantic_mean": 0.6612,
+        "semantic_std": 0.0727,
+        "delta": 0.0207,
+        "pos_folds": 3,
+        "n_folds": 5,
+        "t_p": 0.7978,
+        "wilcoxon_p": 1.0,
+        "collapsed_zero": 0,
+        "collapsed_semantic": 0,
+        "per_fold_zero": [
+          0.7159,
+          0.6825,
+          0.6502,
+          0.3967,
+          0.7574
+        ],
+        "per_fold_semantic": [
+          0.72,
+          0.69,
+          0.538,
+          0.7021,
+          0.656
+        ]
+      },
+      "twitter": {
+        "zero_mean": 0.7241,
+        "zero_std": 0.0094,
+        "semantic_mean": 0.7273,
+        "semantic_std": 0.0081,
+        "delta": 0.0032,
+        "pos_folds": 3,
+        "n_folds": 5,
+        "t_p": 0.214,
+        "wilcoxon_p": 0.3125,
+        "collapsed_zero": 0,
+        "collapsed_semantic": 0,
+        "per_fold_zero": [
+          0.7357,
+          0.731,
+          0.7239,
+          0.7145,
+          0.7155
+        ],
+        "per_fold_semantic": [
+          0.7348,
+          0.7363,
+          0.7233,
+          0.725,
+          0.717
+        ]
+      }
+    }
+  },
+  "interpretation": {
+    "headline": "Paper's core deep-learning claim does NOT reproduce under fair evaluation. No cell shows a robust significant gain from semantic padding.",
+    "decisive_cell": "prelast/twitter (short-text regime, semantic's most favorable legitimate readout): \u0394=+0.0032, t_p=0.214 \u2014 essentially zero; both conditions train cleanly (~0.72-0.73).",
+    "only_nominal_positive": "meanpool/movie \u0394=+0.014 (t_p=0.037) is tiny, an artifact of long docs having no pad slots (semantic\u2261zero; fold1 \u0394=0.0000), and not robust (reverses on meanpool/twitter, vanishes on prelast/movie).",
+    "meanpool_short_text_loss": "meanpool/twitter \u0394=-0.226 (t_p=0.026): semantic_padding fills ~285 of 300 slots from the same alphabetical global lexicon list for every tweet; mean-pooling makes ~93% of the representation a document-independent constant, drowning real signal (features.py:106-107).",
+    "retired_claim": "'Semantic padding improves the LSTM (~+0.20 short text)' is NOT supported: it required a last-time-step readout that collapses the zero baseline to one class (macro-F1 0.3333 on 5/5 twitter folds). Readout artifact, not a representational gain.",
+    "robust_to_readout": "The null holds under BOTH readout families (meanpool: null-to-negative; prelast: null).",
+    "relation_to_classical": "Mirrors the classical correction: a naive design inflates an effect that principled evaluation erases. For the LSTM path the honest result is a null."
+  },
+  "provenance": {
+    "per_fold_csv": [
+      "lstm_meanpool_per_fold.csv",
+      "lstm_prelast_per_fold.csv"
+    ],
+    "summary_csv": [
+      "lstm_meanpool_summary.csv",
+      "lstm_prelast_summary.csv"
+    ],
+    "combined_csv": "LOCKED_lstm_all_cells.csv",
+    "raw_run_json": "lstm_stats.json",
+    "runtime_sec": 768.4
+  }
+}

@@ -1,0 +1,11 @@
+config,regime,embedding,label_source,model,mean_base,std_base,mean_ls,std_ls,mean_delta,paired_t_p,wilcoxon_p
+glove_movie,"long-form (movie_reviews, 2000 docs)",GloVe-100,n/a,svm,0.811182,0.036481,0.812712,0.018837,0.001529,0.92944,1.0
+glove_movie,"long-form (movie_reviews, 2000 docs)",GloVe-100,n/a,rf,0.797349,0.018695,0.800541,0.018732,0.003192,0.58575,0.8125
+w2v_movie,"long-form (movie_reviews, 2000 docs)",word2vec-300,n/a,svm,0.811182,0.036481,0.819327,0.020402,0.008145,0.41438,0.4375
+w2v_movie,"long-form (movie_reviews, 2000 docs)",word2vec-300,n/a,rf,0.797349,0.018695,0.807275,0.018006,0.009925,0.28698,0.3125
+glove_twitter,"short/informal, heuristic labels (twitter_samples, 10000)",GloVe-100,emoticon (distant),svm,0.755811,0.012716,0.762337,0.010349,0.006527,0.01886,0.0625
+glove_twitter,"short/informal, heuristic labels (twitter_samples, 10000)",GloVe-100,emoticon (distant),rf,0.72867,0.0094,0.733873,0.009316,0.005203,0.15312,0.1875
+sent140_glove,"short/informal, GOLD labels (Sentiment140 test, 359)",GloVe-100,human,svm,0.812962,0.013236,0.840733,0.020962,0.027771,0.1157,0.1875
+sent140_glove,"short/informal, GOLD labels (Sentiment140 test, 359)",GloVe-100,human,rf,0.73203,0.028549,0.766645,0.038374,0.034614,0.11303,0.1875
+sent140_w2v,"short/informal, GOLD labels (Sentiment140 test, 359)",word2vec-300,human,svm,0.812962,0.013236,0.815121,0.052045,0.002159,0.92802,1.0
+sent140_w2v,"short/informal, GOLD labels (Sentiment140 test, 359)",word2vec-300,human,rf,0.73203,0.028549,0.792357,0.06653,0.060327,0.1361,0.3125

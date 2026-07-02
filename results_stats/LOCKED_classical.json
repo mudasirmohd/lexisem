@@ -1,0 +1,217 @@
+{
+  "status": "LOCKED classical results",
+  "protocol": "5-fold StratifiedKFold(shuffle=True, random_state=42); macro-F1=mean(F1_pos,F1_neg); unchanged feature/model code; dense lexico-semantic features standardized and kept OUT of the TF-IDF branch (FeatureUnion); no per-run tuning.",
+  "cells": [
+    {
+      "config": "glove_movie",
+      "regime": "long-form (movie_reviews, 2000 docs)",
+      "embedding": "GloVe-100",
+      "label_source": "n/a",
+      "model": "svm",
+      "mean_base": 0.811182,
+      "std_base": 0.036481,
+      "mean_ls": 0.812712,
+      "std_ls": 0.018837,
+      "mean_delta": 0.001529,
+      "paired_t_p": 0.92944,
+      "wilcoxon_p": 1.0
+    },
+    {
+      "config": "glove_movie",
+      "regime": "long-form (movie_reviews, 2000 docs)",
+      "embedding": "GloVe-100",
+      "label_source": "n/a",
+      "model": "rf",
+      "mean_base": 0.797349,
+      "std_base": 0.018695,
+      "mean_ls": 0.800541,
+      "std_ls": 0.018732,
+      "mean_delta": 0.003192,
+      "paired_t_p": 0.58575,
+      "wilcoxon_p": 0.8125
+    },
+    {
+      "config": "w2v_movie",
+      "regime": "long-form (movie_reviews, 2000 docs)",
+      "embedding": "word2vec-300",
+      "label_source": "n/a",
+      "model": "svm",
+      "mean_base": 0.811182,
+      "std_base": 0.036481,
+      "mean_ls": 0.819327,
+      "std_ls": 0.020402,
+      "mean_delta": 0.008145,
+      "paired_t_p": 0.41438,
+      "wilcoxon_p": 0.4375
+    },
+    {
+      "config": "w2v_movie",
+      "regime": "long-form (movie_reviews, 2000 docs)",
+      "embedding": "word2vec-300",
+      "label_source": "n/a",
+      "model": "rf",
+      "mean_base": 0.797349,
+      "std_base": 0.018695,
+      "mean_ls": 0.807275,
+      "std_ls": 0.018006,
+      "mean_delta": 0.009925,
+      "paired_t_p": 0.28698,
+      "wilcoxon_p": 0.3125
+    },
+    {
+      "config": "glove_twitter",
+      "regime": "short/informal, heuristic labels (twitter_samples, 10000)",
+      "embedding": "GloVe-100",
+      "label_source": "emoticon (distant)",
+      "model": "svm",
+      "mean_base": 0.755811,
+      "std_base": 0.012716,
+      "mean_ls": 0.762337,
+      "std_ls": 0.010349,
+      "mean_delta": 0.006527,
+      "paired_t_p": 0.01886,
+      "wilcoxon_p": 0.0625
+    },
+    {
+      "config": "glove_twitter",
+      "regime": "short/informal, heuristic labels (twitter_samples, 10000)",
+      "embedding": "GloVe-100",
+      "label_source": "emoticon (distant)",
+      "model": "rf",
+      "mean_base": 0.72867,
+      "std_base": 0.0094,
+      "mean_ls": 0.733873,
+      "std_ls": 0.009316,
+      "mean_delta": 0.005203,
+      "paired_t_p": 0.15312,
+      "wilcoxon_p": 0.1875
+    },
+    {
+      "config": "sent140_glove",
+      "regime": "short/informal, GOLD labels (Sentiment140 test, 359)",
+      "embedding": "GloVe-100",
+      "label_source": "human",
+      "model": "svm",
+      "mean_base": 0.812962,
+      "std_base": 0.013236,
+      "mean_ls": 0.840733,
+      "std_ls": 0.020962,
+      "mean_delta": 0.027771,
+      "paired_t_p": 0.1157,
+      "wilcoxon_p": 0.1875
+    },
+    {
+      "config": "sent140_glove",
+      "regime": "short/informal, GOLD labels (Sentiment140 test, 359)",
+      "embedding": "GloVe-100",
+      "label_source": "human",
+      "model": "rf",
+      "mean_base": 0.73203,
+      "std_base": 0.028549,
+      "mean_ls": 0.766645,
+      "std_ls": 0.038374,
+      "mean_delta": 0.034614,
+      "paired_t_p": 0.11303,
+      "wilcoxon_p": 0.1875
+    },
+    {
+      "config": "sent140_w2v",
+      "regime": "short/informal, GOLD labels (Sentiment140 test, 359)",
+      "embedding": "word2vec-300",
+      "label_source": "human",
+      "model": "svm",
+      "mean_base": 0.812962,
+      "std_base": 0.013236,
+      "mean_ls": 0.815121,
+      "std_ls": 0.052045,
+      "mean_delta": 0.002159,
+      "paired_t_p": 0.92802,
+      "wilcoxon_p": 1.0
+    },
+    {
+      "config": "sent140_w2v",
+      "regime": "short/informal, GOLD labels (Sentiment140 test, 359)",
+      "embedding": "word2vec-300",
+      "label_source": "human",
+      "model": "rf",
+      "mean_base": 0.73203,
+      "std_base": 0.028549,
+      "mean_ls": 0.792357,
+      "std_ls": 0.06653,
+      "mean_delta": 0.060327,
+      "paired_t_p": 0.1361,
+      "wilcoxon_p": 0.3125
+    }
+  ],
+  "per_config_pooled": {
+    "glove_movie": {
+      "config": "glove_movie",
+      "n": 10,
+      "mean_delta": 0.002361,
+      "n_positive": 5,
+      "one_sample_t_p": 0.776395,
+      "wilcoxon_p": 0.845703
+    },
+    "w2v_movie": {
+      "config": "w2v_movie",
+      "n": 10,
+      "mean_delta": 0.009035,
+      "n_positive": 7,
+      "one_sample_t_p": 0.147069,
+      "wilcoxon_p": 0.193359
+    },
+    "glove_twitter": {
+      "config": "glove_twitter",
+      "n": 10,
+      "mean_delta": 0.005865,
+      "n_positive": 9,
+      "one_sample_t_p": 0.005664,
+      "wilcoxon_p": 0.019531
+    },
+    "sent140_glove": {
+      "config": "sent140_glove",
+      "n": 10,
+      "mean_delta": 0.031193,
+      "n_positive": 8,
+      "one_sample_t_p": 0.015268,
+      "wilcoxon_p": 0.027344
+    },
+    "sent140_w2v": {
+      "config": "sent140_w2v",
+      "n": 10,
+      "mean_delta": 0.031243,
+      "n_positive": 5,
+      "one_sample_t_p": 0.170267,
+      "wilcoxon_p": 0.375
+    }
+  },
+  "gold_overall_pooled": {
+    "n_fold_deltas": 20,
+    "mean_delta": 0.031218,
+    "std_delta": 0.050967,
+    "n_positive": 13,
+    "n_cells": 4,
+    "n_cells_positive": 4,
+    "one_sample_t_p": 0.01304,
+    "wilcoxon_p": 0.02395,
+    "sign_test_p": 0.2632
+  },
+  "interpretation": {
+    "regime_story": {
+      "long_form_movie": "Near-null: deltas +0.0015..+0.0099; not individually significant; GloVe-movie pooled indistinguishable from 0 (t_p=0.78).",
+      "short_heuristic_twitter": "Small positive: deltas +0.0052..+0.0065; SVM cell significant (t_p=0.019); pooled config t_p=0.006.",
+      "short_gold_sent140": "Large effect sizes (+0.028..+0.060); all 4 gold cells positive; significant when pooled (GloVe-gold config t_p=0.015, W_p=0.027; gold overall t_p=0.013, W_p=0.024) but individually per-cell UNDERPOWERED (t_p 0.11..0.93) due to small n=359 and high fold variance."
+    },
+    "corrections_applied": [
+      "RETIRED the 'effect scales with embedding quality' claim: it held on movie/heuristic-twitter but REVERSED on gold (GloVe significant, word2vec noisy/underpowered). Not supported; removed.",
+      "Gold short-text: state large effect sizes (+0.03..+0.06) that are significant WHEN POOLED but individually per-cell underpowered (small n, high fold variance)."
+    ],
+    "methodological_headline": "Naive concatenation (dense features through TF-IDF + hard 3x weight) HARMED the margin-based SVM (~-0.05 macro-F1). The principled fix (standardize dense features, isolate from TF-IDF, drop the weight) removes the harm everywhere and yields a small-to-moderate positive effect concentrated in the short/informal regime."
+  },
+  "provenance": {
+    "movie_reviews": "NLTK movie_reviews (Pang & Lee 2004), 2000 docs, balanced.",
+    "twitter_samples": "NLTK twitter_samples, 10000 tweets, EMOTICON-labeled (distant supervision, July 2015). Emoticons stripped in preprocessing -> no label-token leakage.",
+    "sentiment140_gold": "Sentiment140 manual test set (Go/Bhayani/Huang 2009), HUMAN-annotated; neutral dropped -> 359 binary (182 pos/177 neg). Emoticons/@/URLs stripped in preprocessing -> no circularity.",
+    "embeddings": "gensim glove-wiki-gigaword-100 and word2vec-google-news-300 (both public, versioned)."
+  }
+}

@@ -1,0 +1,209 @@
+{
+  "status": "LSTM results (zero vs semantic padding)",
+  "protocol": "5-fold StratifiedKFold(shuffle=True, random_state=42); macro-F1=mean(F1_pos,F1_neg); paired t + Wilcoxon on per-fold deltas; identical fold split/init/minibatch order/dropout per condition; epochs=10, max_len=300, lr=0.0005, grad_clip=5.0, collapse-retry=1",
+  "readouts": {
+    "meanpool": "post-pad; masked mean-pool (zero over real tokens, semantic over all slots)",
+    "prelast": "pre-pad (real tokens last); last-time-step readout; semantic pads consumed sequentially before real tokens"
+  },
+  "embeddings": "glove-wiki-gigaword-100",
+  "expansion_stats": {
+    "base_positive": 2006,
+    "base_negative": 4783,
+    "base_total": 6789,
+    "expanded_positive": 5689,
+    "expanded_negative": 12024,
+    "expanded_total": 17713
+  },
+  "labels_note": "labels reconstructed deterministically: movie=NLTK movie_reviews pos(1000)+neg(1000); twitter=NLTK twitter_samples pos(5000)+neg(5000), emoticon distant",
+  "cells_by_readout": {
+    "meanpool": {
+      "movie": {
+        "folds": {
+          "zero_macro_f1": [
+            0.812405030046461,
+            0.6999924998124953,
+            0.7774318385005408,
+            0.7646233974358975,
+            0.7621655452980755
+          ],
+          "semantic_macro_f1": [
+            0.8124425605341636,
+            0.7234443746071653,
+            0.7974379653768966,
+            0.7846554487179487,
+            0.7686989314896291
+          ],
+          "zero_collapsed": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "semantic_collapsed": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        "stats": {
+          "mean_zero": 0.763323662218694,
+          "std_zero": 0.040687491886331605,
+          "mean_semantic": 0.7773358561451607,
+          "std_semantic": 0.03416518759614283,
+          "mean_delta": 0.014012193926466642,
+          "n_positive": 5,
+          "n_folds": 5,
+          "paired_t_stat": 3.0853937550685684,
+          "paired_t_p": 0.03673838904824665,
+          "wilcoxon_p": 0.0625,
+          "n_collapsed_zero": 0,
+          "n_collapsed_semantic": 0
+        }
+      },
+      "twitter": {
+        "folds": {
+          "zero_macro_f1": [
+            0.741995871933951,
+            0.7211284734086987,
+            0.7248374381762948,
+            0.7259778042021403,
+            0.7199768326156482
+          ],
+          "semantic_macro_f1": [
+            0.3333333333333333,
+            0.6609698712502451,
+            0.41728570932320963,
+            0.6333125333933463,
+            0.4608025036056581
+          ],
+          "zero_collapsed": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "semantic_collapsed": [
+            true,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        "stats": {
+          "mean_zero": 0.7267832840673465,
+          "std_zero": 0.008862316409856139,
+          "mean_semantic": 0.5011407901811584,
+          "std_semantic": 0.1412735815557992,
+          "mean_delta": -0.22564249388618807,
+          "n_positive": 0,
+          "n_folds": 5,
+          "paired_t_stat": -3.433086837702457,
+          "paired_t_p": 0.026460688777769234,
+          "wilcoxon_p": 0.0625,
+          "n_collapsed_zero": 0,
+          "n_collapsed_semantic": 1
+        }
+      }
+    },
+    "prelast": {
+      "movie": {
+        "folds": {
+          "zero_macro_f1": [
+            0.7159090909090908,
+            0.6824821396203536,
+            0.6501818133996147,
+            0.39673982800667434,
+            0.7574257116241849
+          ],
+          "semantic_macro_f1": [
+            0.7199929998249956,
+            0.6899922498062452,
+            0.5380476505183612,
+            0.7020810514786419,
+            0.6560027519779841
+          ],
+          "zero_collapsed": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "semantic_collapsed": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        "stats": {
+          "mean_zero": 0.6405477167119837,
+          "std_zero": 0.1419801048159196,
+          "mean_semantic": 0.6612233407212456,
+          "std_semantic": 0.07271585228344338,
+          "mean_delta": 0.020675624009261918,
+          "n_positive": 3,
+          "n_folds": 5,
+          "paired_t_stat": 0.27381975629953886,
+          "paired_t_p": 0.7977811426810724,
+          "wilcoxon_p": 1.0,
+          "n_collapsed_zero": 0,
+          "n_collapsed_semantic": 0
+        }
+      },
+      "twitter": {
+        "folds": {
+          "zero_macro_f1": [
+            0.7357460519559296,
+            0.7309909676585519,
+            0.7238841007284883,
+            0.7144553836536959,
+            0.7154999288749821
+          ],
+          "semantic_macro_f1": [
+            0.7347769474127741,
+            0.7363417391289121,
+            0.7233490629390924,
+            0.7249823988735279,
+            0.716998867995472
+          ],
+          "zero_collapsed": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "semantic_collapsed": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        "stats": {
+          "mean_zero": 0.7241152865743296,
+          "std_zero": 0.009356030853850993,
+          "mean_semantic": 0.7272898032699556,
+          "std_semantic": 0.008135597218974788,
+          "mean_delta": 0.0031745166956261396,
+          "n_positive": 3,
+          "n_folds": 5,
+          "paired_t_stat": 1.475854881004227,
+          "paired_t_p": 0.214020571511799,
+          "wilcoxon_p": 0.3125,
+          "n_collapsed_zero": 0,
+          "n_collapsed_semantic": 0
+        }
+      }
+    }
+  },
+  "runtime_sec": 768.4
+}

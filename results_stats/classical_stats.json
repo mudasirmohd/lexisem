@@ -1,0 +1,206 @@
+{
+  "seed": 42,
+  "protocol": "StratifiedKFold(5, shuffle=True, random_state=42)",
+  "metric": "macro-F1 = mean(F1_pos, F1_neg)",
+  "cells": [
+    {
+      "config": "glove_movie",
+      "model": "svm",
+      "base_folds": [
+        0.778203,
+        0.786527,
+        0.792005,
+        0.837133,
+        0.862044
+      ],
+      "ls_folds": [
+        0.826928,
+        0.784088,
+        0.809064,
+        0.832264,
+        0.811215
+      ],
+      "mean_base": 0.811182,
+      "std_base": 0.036481,
+      "mean_ls": 0.812712,
+      "std_ls": 0.018837,
+      "mean_delta": 0.001529,
+      "paired_t_stat": 0.0942,
+      "paired_t_p": 0.92944,
+      "wilcoxon_stat": 7.0,
+      "wilcoxon_p": 1.0
+    },
+    {
+      "config": "glove_movie",
+      "model": "rf",
+      "base_folds": [
+        0.771608,
+        0.792489,
+        0.799499,
+        0.823873,
+        0.799277
+      ],
+      "ls_folds": [
+        0.783615,
+        0.779957,
+        0.817362,
+        0.820796,
+        0.800976
+      ],
+      "mean_base": 0.797349,
+      "std_base": 0.018695,
+      "mean_ls": 0.800541,
+      "std_ls": 0.018732,
+      "mean_delta": 0.003192,
+      "paired_t_stat": 0.5919,
+      "paired_t_p": 0.58575,
+      "wilcoxon_stat": 6.0,
+      "wilcoxon_p": 0.8125
+    },
+    {
+      "config": "w2v_movie",
+      "model": "svm",
+      "base_folds": [
+        0.778203,
+        0.786527,
+        0.792005,
+        0.837133,
+        0.862044
+      ],
+      "ls_folds": [
+        0.814536,
+        0.794259,
+        0.809064,
+        0.832197,
+        0.846579
+      ],
+      "mean_base": 0.811182,
+      "std_base": 0.036481,
+      "mean_ls": 0.819327,
+      "std_ls": 0.020402,
+      "mean_delta": 0.008145,
+      "paired_t_stat": 0.9098,
+      "paired_t_p": 0.41438,
+      "wilcoxon_stat": 4.0,
+      "wilcoxon_p": 0.4375
+    },
+    {
+      "config": "w2v_movie",
+      "model": "rf",
+      "base_folds": [
+        0.771608,
+        0.792489,
+        0.799499,
+        0.823873,
+        0.799277
+      ],
+      "ls_folds": [
+        0.804173,
+        0.795557,
+        0.822366,
+        0.828612,
+        0.785666
+      ],
+      "mean_base": 0.797349,
+      "std_base": 0.018695,
+      "mean_ls": 0.807275,
+      "std_ls": 0.018006,
+      "mean_delta": 0.009925,
+      "paired_t_stat": 1.2274,
+      "paired_t_p": 0.28698,
+      "wilcoxon_stat": 3.0,
+      "wilcoxon_p": 0.3125
+    },
+    {
+      "config": "glove_twitter",
+      "model": "svm",
+      "base_folds": [
+        0.774045,
+        0.76225,
+        0.753442,
+        0.747692,
+        0.741623
+      ],
+      "ls_folds": [
+        0.778511,
+        0.766906,
+        0.75655,
+        0.755437,
+        0.754283
+      ],
+      "mean_base": 0.755811,
+      "std_base": 0.012716,
+      "mean_ls": 0.762337,
+      "std_ls": 0.010349,
+      "mean_delta": 0.006527,
+      "paired_t_stat": 3.8146,
+      "paired_t_p": 0.01886,
+      "wilcoxon_stat": 0.0,
+      "wilcoxon_p": 0.0625
+    },
+    {
+      "config": "glove_twitter",
+      "model": "rf",
+      "base_folds": [
+        0.734425,
+        0.741839,
+        0.724682,
+        0.724321,
+        0.718082
+      ],
+      "ls_folds": [
+        0.729057,
+        0.750049,
+        0.733501,
+        0.727435,
+        0.729323
+      ],
+      "mean_base": 0.72867,
+      "std_base": 0.0094,
+      "mean_ls": 0.733873,
+      "std_ls": 0.009316,
+      "mean_delta": 0.005203,
+      "paired_t_stat": 1.7605,
+      "paired_t_p": 0.15312,
+      "wilcoxon_stat": 2.0,
+      "wilcoxon_p": 0.1875
+    }
+  ],
+  "per_config": [
+    {
+      "config": "glove_movie",
+      "n": 10,
+      "mean_delta": 0.002361,
+      "n_positive": 5,
+      "one_sample_t_p": 0.776395,
+      "wilcoxon_p": 0.845703
+    },
+    {
+      "config": "w2v_movie",
+      "n": 10,
+      "mean_delta": 0.009035,
+      "n_positive": 7,
+      "one_sample_t_p": 0.147069,
+      "wilcoxon_p": 0.193359
+    },
+    {
+      "config": "glove_twitter",
+      "n": 10,
+      "mean_delta": 0.005865,
+      "n_positive": 9,
+      "one_sample_t_p": 0.005664,
+      "wilcoxon_p": 0.019531
+    }
+  ],
+  "overall": {
+    "n_fold_deltas": 30,
+    "mean_delta": 0.005754,
+    "std_delta": 0.017845,
+    "n_positive": 21,
+    "n_cells": 6,
+    "n_cells_positive": 6,
+    "one_sample_t_p": 0.08792,
+    "wilcoxon_p": 0.03682,
+    "sign_test_p": 0.04277
+  }
+}

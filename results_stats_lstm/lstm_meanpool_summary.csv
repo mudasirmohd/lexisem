@@ -1,0 +1,3 @@
+dataset,mean_zero,std_zero,mean_semantic,std_semantic,mean_delta,n_positive,paired_t_stat,paired_t_p,wilcoxon_p,n_collapsed_zero,n_collapsed_semantic
+movie,0.763324,0.040687,0.777336,0.034165,0.014012,5,3.0854,0.03674,0.06250,0,0
+twitter,0.726783,0.008862,0.501141,0.141274,-0.225642,0,-3.4331,0.02646,0.06250,0,1

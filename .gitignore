@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+*.model
+*.model.*
+*.pkl
+embeddings_lexisem.model*
+preproc_*.pkl
+results.json
+*.egg-info/
+*.log
+.ipynb_checkpoints/

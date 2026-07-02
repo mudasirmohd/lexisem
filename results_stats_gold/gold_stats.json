@@ -1,0 +1,145 @@
+{
+  "seed": 42,
+  "protocol": "StratifiedKFold(5, shuffle=True, random_state=42)",
+  "dataset": "Sentiment140 manual test set (Go/Bhayani/Huang 2009), human-annotated, binary (neutral dropped): 359 tweets = 182 pos / 177 neg",
+  "metric": "macro-F1 = mean(F1_pos, F1_neg)",
+  "cells": [
+    {
+      "config": "sent140_glove",
+      "model": "svm",
+      "base_folds": [
+        0.805405,
+        0.804196,
+        0.833333,
+        0.81941,
+        0.802464
+      ],
+      "ls_folds": [
+        0.873807,
+        0.846957,
+        0.81913,
+        0.832817,
+        0.830952
+      ],
+      "mean_base": 0.812962,
+      "std_base": 0.013236,
+      "mean_ls": 0.840733,
+      "std_ls": 0.020962,
+      "mean_delta": 0.027771,
+      "paired_t_stat": 2.0031,
+      "paired_t_p": 0.1157,
+      "wilcoxon_stat": 2.0,
+      "wilcoxon_p": 0.1875
+    },
+    {
+      "config": "sent140_glove",
+      "model": "rf",
+      "base_folds": [
+        0.742857,
+        0.724138,
+        0.70555,
+        0.776224,
+        0.711382
+      ],
+      "ls_folds": [
+        0.803125,
+        0.760141,
+        0.78836,
+        0.777606,
+        0.70399
+      ],
+      "mean_base": 0.73203,
+      "std_base": 0.028549,
+      "mean_ls": 0.766645,
+      "std_ls": 0.038374,
+      "mean_delta": 0.034614,
+      "paired_t_stat": 2.0236,
+      "paired_t_p": 0.11303,
+      "wilcoxon_stat": 2.0,
+      "wilcoxon_p": 0.1875
+    },
+    {
+      "config": "sent140_w2v",
+      "model": "svm",
+      "base_folds": [
+        0.805405,
+        0.804196,
+        0.833333,
+        0.81941,
+        0.802464
+      ],
+      "ls_folds": [
+        0.817722,
+        0.874394,
+        0.832817,
+        0.81913,
+        0.731542
+      ],
+      "mean_base": 0.812962,
+      "std_base": 0.013236,
+      "mean_ls": 0.815121,
+      "std_ls": 0.052045,
+      "mean_delta": 0.002159,
+      "paired_t_stat": 0.0962,
+      "paired_t_p": 0.92802,
+      "wilcoxon_stat": 7.0,
+      "wilcoxon_p": 1.0
+    },
+    {
+      "config": "sent140_w2v",
+      "model": "rf",
+      "base_folds": [
+        0.742857,
+        0.724138,
+        0.70555,
+        0.776224,
+        0.711382
+      ],
+      "ls_folds": [
+        0.874394,
+        0.816578,
+        0.817722,
+        0.749807,
+        0.703284
+      ],
+      "mean_base": 0.73203,
+      "std_base": 0.028549,
+      "mean_ls": 0.792357,
+      "std_ls": 0.06653,
+      "mean_delta": 0.060327,
+      "paired_t_stat": 1.8619,
+      "paired_t_p": 0.1361,
+      "wilcoxon_stat": 3.0,
+      "wilcoxon_p": 0.3125
+    }
+  ],
+  "per_config": [
+    {
+      "config": "sent140_glove",
+      "n": 10,
+      "mean_delta": 0.031193,
+      "n_positive": 8,
+      "one_sample_t_p": 0.015268,
+      "wilcoxon_p": 0.027344
+    },
+    {
+      "config": "sent140_w2v",
+      "n": 10,
+      "mean_delta": 0.031243,
+      "n_positive": 5,
+      "one_sample_t_p": 0.170267,
+      "wilcoxon_p": 0.375
+    }
+  ],
+  "overall": {
+    "n_fold_deltas": 20,
+    "mean_delta": 0.031218,
+    "std_delta": 0.050967,
+    "n_positive": 13,
+    "n_cells": 4,
+    "n_cells_positive": 4,
+    "one_sample_t_p": 0.01304,
+    "wilcoxon_p": 0.02395,
+    "sign_test_p": 0.2632
+  }
+}

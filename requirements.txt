@@ -1,0 +1,9 @@
+nltk>=3.8
+gensim>=4.3
+scikit-learn>=1.3
+numpy>=1.24
+afinn>=0.1
+# LSTM path (optional but recommended on your GPU box):
+# install the CUDA build from https://pytorch.org for your CUDA version, e.g.
+#   pip install torch --index-url https://download.pytorch.org/whl/cu121
+torch>=2.0
