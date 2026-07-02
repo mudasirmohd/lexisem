@@ -96,6 +96,38 @@ scripts/
   entries, matching the paper). AFINN is also available via `load_afinn()`.
 - Swap in any gensim `KeyedVectors`-compatible embedding without code changes.
 
-## 5. License
+## 5. Results
+
+All results use 5-fold `StratifiedKFold(shuffle=True, random_state=42)`,
+macro-F1 = mean(F1_pos, F1_neg), with paired t-test + Wilcoxon on per-fold
+deltas. Locked tables (numbers, per-fold CSVs, provenance) live under
+`results_stats*/`.
+
+**Classical — baseline vs +lexico-semantic features**
+([`results_stats/LOCKED_classical_results.md`](results_stats/LOCKED_classical_results.md)):
+the effect is **negligible on long-form** text (movie_reviews), **small on
+short/informal heuristic-labeled** text (twitter_samples), and **largest on
+short/informal GOLD** text (Sentiment140, Δ≈+0.03–0.06) — significant when
+pooled but per-cell underpowered (small n, high fold variance). Adding dense
+features naively (through TF-IDF + a hard weight) harms the SVM; a principled
+pipeline (standardize dense features, isolate from TF-IDF) removes the harm and
+yields the short-text-concentrated positive effect.
+
+**Deep learning — zero- vs semantic-padding LSTM**
+([`results_stats_lstm/LOCKED_lstm_results.md`](results_stats_lstm/LOCKED_lstm_results.md),
+reproduce with `python scripts/run_lstm.py`): under a **fair** evaluation
+semantic padding shows **no genuine gain**. Tested across two readout families
+(masked mean-pool and pre-pad/last-step), the effect is null on short text
+(Δ≈+0.003, n.s.) and near-null/negative elsewhere. A naive last-time-step
+readout appears to give a large gain (≈+0.20) only because it collapses the
+zero-padding baseline to a single class (macro-F1 0.333) — a readout artifact,
+not a representational improvement.
+
+> **On faithfulness.** The method is implemented faithfully; absolute scores
+> depend on embeddings, lexicon version and dataset, and differ from the 2022
+> paper's tables (which used some now-unavailable datasets). These locked
+> tables report what a rigorous, principled re-evaluation actually yields.
+
+## 6. License
 
 MIT (see `LICENSE`).
