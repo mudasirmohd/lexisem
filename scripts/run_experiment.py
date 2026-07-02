@@ -37,6 +37,7 @@ from sklearn.model_selection import StratifiedKFold
 from sklearn.metrics import precision_recall_fscore_support
 
 from lexisem import load_vectors, load_bing_liu, expand_lexicon, expansion_stats
+from lexisem.nltk_utils import ensure_nltk
 from lexisem.preprocess import preprocess
 from lexisem.features import (
     surface_features, lexico_semantic_features, LEXSEM_KEYS,
@@ -48,21 +49,8 @@ SEED = 42
 # --------------------------------------------------------------------------- #
 # Data
 # --------------------------------------------------------------------------- #
-def _ensure_corpus(name: str) -> None:
-    """Make an NLTK corpus available without hanging when offline.
-
-    Looks for it first (honours the NLTK_DATA env var / nltk.data.path); only
-    hits the network if it is genuinely missing. In an offline capsule the
-    corpus is pre-staged under NLTK_DATA, so no download is attempted.
-    """
-    try:
-        nltk.data.find(f"corpora/{name}")
-    except LookupError:
-        nltk.download(name, quiet=True)
-
-
 def load_movie_reviews() -> Tuple[List[str], np.ndarray]:
-    _ensure_corpus("movie_reviews")
+    ensure_nltk("movie_reviews")
     from nltk.corpus import movie_reviews
     texts, labels = [], []
     for cat in ("pos", "neg"):
@@ -212,6 +200,8 @@ def main():
     print(f"      docs={len(texts)}  pos={int(y.sum())}  neg={int((y==0).sum())}")
 
     print("[4/5] Preprocessing (cached) + feature extraction ...")
+    ensure_nltk("punkt", "punkt_tab", "stopwords",
+                "averaged_perceptron_tagger", "averaged_perceptron_tagger_eng")
     tokenised = preprocess_all(texts, cache=f"preproc_{tag}.pkl")
     base_feats = build_feats(tokenised, exp, use_lexsem=False)
     ls_feats = build_feats(tokenised, exp, use_lexsem=True)

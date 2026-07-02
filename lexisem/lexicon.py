@@ -13,9 +13,10 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Dict, Set
 
-import nltk
 from nltk.corpus import wordnet as wn
 from nltk.stem import WordNetLemmatizer
+
+from .nltk_utils import ensure_nltk
 
 _lemma = WordNetLemmatizer()
 
@@ -37,7 +38,7 @@ class Lexicon:
 
 
 def load_bing_liu() -> Lexicon:
-    nltk.download("opinion_lexicon", quiet=True)
+    ensure_nltk("opinion_lexicon")
     from nltk.corpus import opinion_lexicon
     return Lexicon(
         positive={w.lower() for w in opinion_lexicon.positive()},
@@ -87,8 +88,7 @@ def expand_lexicon(
     `kv` is a gensim-style vectors object (e.g. FastText.wv) exposing
     `.most_similar` and `.key_to_index`.
     """
-    nltk.download("wordnet", quiet=True)
-    nltk.download("omw-1.4", quiet=True)
+    ensure_nltk("wordnet", "omw-1.4")
 
     pos = {_lemma.lemmatize(w) for w in base.positive}
     neg = {_lemma.lemmatize(w) for w in base.negative}

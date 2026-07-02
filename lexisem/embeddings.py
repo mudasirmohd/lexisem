@@ -87,8 +87,8 @@ def _train_local(arch: str = "word2vec", vector_size: int = 100,
     Model = FastText if arch == "fasttext" else Word2Vec
     if os.path.exists(cache_path):
         return Model.load(cache_path)
-    for c in _TRAIN_CORPORA + ["punkt", "punkt_tab"]:
-        nltk.download(c, quiet=True)
+    from .nltk_utils import ensure_nltk
+    ensure_nltk(*(_TRAIN_CORPORA + ["punkt", "punkt_tab"]))
     common = dict(vector_size=vector_size, window=window,
                   min_count=min_count, workers=os.cpu_count() or 2, seed=seed)
     model = FastText(bucket=2_000_000, sg=1, **common) if arch == "fasttext" \
